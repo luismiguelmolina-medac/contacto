@@ -59,6 +59,16 @@
             padding: 30px;
         }
 
+        .main-content.empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-content.form {
+            display: none;
+        }
+
         .img-preview {
             width: 200px;
             height: 200px;
@@ -79,7 +89,7 @@
             <!-- Columna Izquierda -->
             <div class="col-12 col-md-4 col-lg-3 sidebar">
                 <div class="contact-list">
-                    <div class="contact-item">
+                    <!--<div class="contact-item">
                         <div class="contact-info">
                             <img src="imagenes/user.png" alt="Contacto">
                             <div>
@@ -92,20 +102,7 @@
                             <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
-
-                    <div class="contact-item">
-                        <div class="contact-info">
-                            <img src="imagenes/user.png" alt="Contacto">
-                            <div>
-                                <div class="fw-bold">María López</div>
-                                <div class="text-muted small">+34 700 654 321</div>
-                            </div>
-                        </div>
-                        <div>
-                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></button>
-                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
-                        </div>
-                    </div>
+                    -->
                 </div>
 
                 <div class="add-btn">
@@ -114,24 +111,24 @@
             </div>
 
             <!-- Columna Derecha -->
-            <div class="col-12 col-md-8 col-lg-9 main-content">
+            <div class="col-12 col-md-8 col-lg-9 main-content form">
                 <h4>Editar Contacto</h4>
-                <form class="mt-4">
+                <form id="form_edit" class="mt-4">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre completo">
+                        <input type="text" class="form-control" placeholder="Nombre completo" id="nom_contact">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" placeholder="+34 600 000 000">
+                        <input type="text" class="form-control" placeholder="+34 600 000 000" id="tel_contact">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="correo@ejemplo.com">
+                        <input type="email" class="form-control" placeholder="correo@ejemplo.com" id="mail_contact">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Imagen (URL)</label>
-                        <input type="url" class="form-control" placeholder="https://...">
+                        <input type="url" class="form-control" placeholder="https://..." id="img_contact">
                         <div class="mt-2">
                             <img src="imagenes/user.png" class="img-preview" alt="Vista previa">
                         </div>
@@ -140,11 +137,15 @@
                 </form>
             </div>
 
+            <div class="col-12 col-md-8 col-lg-9 main-content empty">
+                <img src="imagenes/user.png" alt="" width="400px" height="400px">
+            </div>
         </div>
     </div>
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="contacto.js"></script>
 </body>
 
 </html>

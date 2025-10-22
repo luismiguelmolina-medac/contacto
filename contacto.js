@@ -33,4 +33,30 @@ form.onsubmit = function (e) {
 
     document.querySelector(".main-content.empty").style.display = "flex";
     document.querySelector(".main-content.form").style.display = "none";
+    document.querySelector(".main-content.form").o
 }
+
+function actualizarContactos() {
+    let lista = document.getElementById("contact-list");
+    lista.innerHTML = "";
+    contactos.forEach(function (contacto) {
+        lista.innerHTML += `
+        <div class="contact-item">
+                        <div class="contact-info">
+                            <img src="imagenes/user.png" alt="Contacto">
+                            <div>
+                                <div class="fw-bold">Juan Pérez</div>
+                                <div class="text-muted small">+34 600 123 456</div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+        `;
+
+    });
+}
+
+actualizarContactos();

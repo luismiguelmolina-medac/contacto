@@ -4,11 +4,13 @@ let nombre = document.getElementById("nom_contact");
 let telefono = document.getElementById("tel_contact");
 let email = document.getElementById("mail_contact");
 let contactos = JSON.parse(localStorage.getItem("contactos")) ?? [];
+let posEdit = -1;
 
 document.querySelector(".add-btn button").addEventListener("click", function () {
     document.querySelector(".main-content.empty").style.display = "none";
     document.querySelector(".main-content.form").style.display = "block";
     form.reset();
+    document.getElementsByClassName("img-preview")[0].src = "imagenes/user.png";
 });
 
 img.onkeyup = cargarImagen;
@@ -28,25 +30,32 @@ form.onsubmit = function (e) {
         email: email.value,
         img: img.value
     };
-    contactos.push(contacto);
+    if (posEdit == -1) {
+        contactos.push(contacto);
+    } else {
+        contactos[posEdit] = contacto;
+    }
+
     localStorage.setItem("contactos", JSON.stringify(contactos));
 
     document.querySelector(".main-content.empty").style.display = "flex";
     document.querySelector(".main-content.form").style.display = "none";
-    document.querySelector(".main-content.form").o
+    posEdit = -1;
+    actualizarContactos();
 }
 
 function actualizarContactos() {
     let lista = document.getElementById("contact-list");
     lista.innerHTML = "";
+    let i = 0;
     contactos.forEach(function (contacto) {
-        lista.innerHTML += `
-        <div class="contact-item">
+        /*lista.innerHTML += `
+                    <div class="contact-item">
                         <div class="contact-info">
-                            <img src="imagenes/user.png" alt="Contacto">
+                            <img src="${contacto.img}" alt="Contacto">
                             <div>
-                                <div class="fw-bold">Juan Pérez</div>
-                                <div class="text-muted small">+34 600 123 456</div>
+                                <div class="fw-bold">${contacto.nombre}</div>
+                                <div class="text-muted small">${contacto.telefono}</div>
                             </div>
                         </div>
                         <div>
@@ -54,9 +63,45 @@ function actualizarContactos() {
                             <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
+        `;*/
+
+        let cont = document.createElement("div");
+        cont.className = "contact-item";
+        cont.innerHTML = `
+                        <div class="contact-info">
+                            <img src="${contacto.img}" alt="Contacto">
+                            <div>
+                                <div class="fw-bold">${contacto.nombre}</div>
+                                <div class="text-muted small">${contacto.telefono}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="verContacto(${i})"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarContacto(${i})"><i class="bi bi-trash"></i></button>
+                        </div>
         `;
 
+        i++;
+        lista.appendChild(cont);
     });
+}
+
+function eliminarContacto(pos) {
+    contactos.splice(pos, 1);
+    localStorage.setItem("contactos", JSON.stringify(contactos));
+    actualizarContactos();
+}
+
+function verContacto(pos) {
+    let contacto = contactos[pos];
+    nombre.value = contacto.nombre;
+    telefono.value = contacto.telefono;
+    email.value = contacto.email;
+    img.value = contacto.img;
+    cargarImagen();
+    posEdit = pos;
+    document.querySelector(".main-content.empty").style.display = "none";
+    document.querySelector(".main-content.form").style.display = "block";
 }
 
 actualizarContactos();
